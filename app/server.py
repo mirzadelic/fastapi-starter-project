@@ -1,4 +1,5 @@
 import uvicorn
+
 from core.settings import settings
 
 
@@ -12,6 +13,7 @@ def main() -> None:
         reload=settings.reload,
         factory=True,
     )
+
 
 if __name__ == "__main__":
     main()

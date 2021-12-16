@@ -60,6 +60,7 @@ repos:
     pass_filenames: false
     args:
     - "app"
+    - "--ignore-missing-imports"
 
   - id: yesqa
     name: Remove usless noqa

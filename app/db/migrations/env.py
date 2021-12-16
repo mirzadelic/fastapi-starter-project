@@ -2,10 +2,11 @@ import asyncio
 from logging.config import fileConfig
 
 from alembic import context
-from core.settings import settings
-from db.models import load_all_models
 from sqlalchemy.ext.asyncio.engine import create_async_engine
 from sqlmodel import SQLModel
+
+from core.settings import settings
+from db.models import load_all_models
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -13,7 +14,7 @@ config = context.config
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
-fileConfig(config.config_file_name)
+fileConfig(config.config_file_name)  # type: ignore
 
 load_all_models()
 # add your model's MetaData object here

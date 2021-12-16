@@ -1,10 +1,11 @@
 from typing import List
 
-from db.db import get_session
-from db.models.example import Example, ExampleBase
 from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+
+from db.db import get_session
+from db.models.example import Example, ExampleBase
 
 
 class ExampleService:
@@ -16,8 +17,7 @@ class ExampleService:
 
         return examples.scalars().fetchall()
 
-
-    async def create_example(self, data: ExampleBase) -> List[Example]:
+    async def create_example(self, data: ExampleBase) -> Example:
         example = Example(**data.dict())
         self.session.add(example)
         await self.session.commit()
