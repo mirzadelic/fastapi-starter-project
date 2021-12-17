@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).parent.resolve()
 class Settings(BaseSettings):
     """Application settings."""
 
-    host: str = "127.0.0.1"
+    host: str = "0.0.0.0"
     port: int = 8000
     base_url_: str = f"https://{host}:{port}"
     # quantity of workers for uvicorn
@@ -18,9 +18,9 @@ class Settings(BaseSettings):
     # Database settings
     db_host: str = "localhost"
     db_port: int = 5432
-    db_user: str = ""
-    db_pass: str = ""
-    db_base: str = ""
+    db_user: str = "postgres"
+    db_pass: str = "postgres"
+    db_base: str = "db"
     db_echo: bool = False
 
     @property
@@ -41,9 +41,9 @@ class Settings(BaseSettings):
         env_file = f"{BASE_DIR}/.env"
         env_file_encoding = "utf-8"
         fields = {
-            'base_url_': {
-                'env': 'BASE_URL',
-            }
+            "base_url_": {
+                "env": "BASE_URL",
+            },
         }
 
 
