@@ -8,6 +8,7 @@ BASE_DIR = Path(__file__).parent.resolve()
 class Settings(BaseSettings):
     """Application settings."""
 
+    env: str = "dev"
     host: str = "0.0.0.0"
     port: int = 8000
     base_url_: str = f"https://{host}:{port}"

@@ -7,9 +7,9 @@ class ExampleBase(SQLModel):
 
 
 class Example(ExampleBase, table=True):
-    __tablename__ = 'example'
+    __tablename__ = "example"
 
     id: int = Field(default=None, primary_key=True)
 
     def __repr__(self):
-        return f'<Example (id: {self.id})>'
+        return f"<Example (id: {self.id})>"

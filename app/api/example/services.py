@@ -1,5 +1,3 @@
-from typing import List
-
 from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -12,7 +10,7 @@ class ExampleService:
     def __init__(self, session: AsyncSession = Depends(get_session)):
         self.session = session
 
-    async def get_all_examples(self) -> List[Example]:
+    async def get_all_examples(self) -> list[Example]:
         examples = await self.session.execute(select(Example))
 
         return examples.scalars().fetchall()
