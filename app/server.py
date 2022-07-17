@@ -1,5 +1,4 @@
 import uvicorn
-
 from core.settings import settings
 
 
@@ -7,10 +6,10 @@ def main() -> None:
     """Entrypoint of the application."""
     uvicorn.run(
         "core.app:get_app",
-        workers=settings.workers_count,
-        host=settings.host,
-        port=settings.port,
-        reload=settings.reload,
+        workers=settings.WORKERS_COUNT,
+        host=settings.HOST,
+        port=settings.PORT,
+        reload=settings.RELOAD,
         factory=True,
     )
 

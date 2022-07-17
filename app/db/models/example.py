@@ -1,15 +1,11 @@
-from sqlmodel import Field, SQLModel
+from db.models.common import TimestampModel, UUIDModel
 
 
-class ExampleBase(SQLModel):
-    name: str
-    active: bool = True
-
-
-class Example(ExampleBase, table=True):
+class Example(TimestampModel, UUIDModel, table=True):
     __tablename__ = "example"
 
-    id: int = Field(default=None, primary_key=True)
+    name: str
+    active: bool = True
 
     def __repr__(self):
         return f"<Example (id: {self.id})>"

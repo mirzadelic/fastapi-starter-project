@@ -1,4 +1,5 @@
 from pathlib import Path
+from sys import modules
 
 from pydantic import BaseSettings
 
@@ -8,44 +9,47 @@ BASE_DIR = Path(__file__).parent.resolve()
 class Settings(BaseSettings):
     """Application settings."""
 
-    env: str = "dev"
-    host: str = "0.0.0.0"
-    port: int = 8000
-    base_url_: str = f"https://{host}:{port}"
+    ENV: str = "dev"
+    HOST: str = "0.0.0.0"
+    PORT: int = 8000
+    BASE_URL_: str = f"https://{HOST}:{PORT}"
     # quantity of workers for uvicorn
-    workers_count: int = 1
+    WORKERS_COUNT: int = 1
     # Enable uvicorn reloading
-    reload: bool = False
+    RELOAD: bool = False
     # Database settings
-    db_host: str = "localhost"
-    db_port: int = 5432
-    db_user: str = "postgres"
-    db_pass: str = "postgres"
-    db_base: str = "db"
-    db_echo: bool = False
+    DB_HOST: str = "localhost"
+    DB_PORT: int = 5432
+    DB_USER: str = "postgres"
+    DB_PASS: str = "postgres"
+    DB_BASE: str = "db"
+    DB_ECHO: bool = False
 
     @property
-    def base_url(self) -> str:
-        return self.base_url_ if self.base_url_.endswith("/") else f"{self.base_url_}/"
+    def BASE_URL(self) -> str:
+        return self.BASE_URL_ if self.BASE_URL_.endswith("/") else f"{self.BASE_URL_}/"
 
     @property
-    def db_url(self) -> str:
+    def DB_URL(self) -> str:
         """
         Assemble Database URL from settings.
 
         :return: Database URL.
         """
 
-        return f"postgresql+asyncpg://{self.db_user}:{self.db_pass}@{self.db_host}:{self.db_port}/{self.db_base}"
+        return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_BASE}"
 
     class Config:
         env_file = f"{BASE_DIR}/.env"
         env_file_encoding = "utf-8"
         fields = {
-            "base_url_": {
+            "BASE_URL_": {
                 "env": "BASE_URL",
             },
         }
 
 
 settings = Settings()
+
+if "pytest" in modules:
+    settings.DB_BASE += "_test"
