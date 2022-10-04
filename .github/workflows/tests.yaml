@@ -44,5 +44,5 @@ jobs:
         DB_PORT: 5432
         DB_USER: postgres
         DB_PASS: postgres
-        DB_BASE: db
+        DB_BASE: db_test
       run: cd app && pytest .
