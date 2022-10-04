@@ -14,7 +14,7 @@ Check db/models and migrations, there is one example.
 
 ## Using docker
 
-Setup env variables in `app/core/.env`.
+Setup env variables in `app/core/.env` using `app/core/.env-example`
 
 #### Install and run
 
@@ -38,7 +38,15 @@ docker-compose exec web alembic revision --autogenerate -m "Example model"
 Apply migrations
 
 ```bash
-docker-compose exec web alembic alembic upgrade head
+docker-compose exec web alembic upgrade head
+```
+
+#### Tests
+
+Run tests
+
+```bash
+docker-compose exec web pytest .
 ```
 
 ## Without docker
@@ -73,6 +81,14 @@ Apply migrations
 
 ```bash
 alembic upgrade head
+```
+
+#### Tests
+
+Run tests
+
+```bash
+pytest .
 ```
 
 ## Environment Variables

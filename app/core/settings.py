@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     # Enable uvicorn reloading
     RELOAD: bool = False
     # Database settings
-    DB_HOST: str = "localhost"
+    DB_HOST: str = "127.0.0.1"
     DB_PORT: int = 5432
     DB_USER: str = "postgres"
     DB_PASS: str = "postgres"
@@ -49,7 +49,13 @@ class Settings(BaseSettings):
         }
 
 
-settings = Settings()
+class TestSettings(Settings):
+    @property
+    def DB_BASE(self):
+        return f"{self.DB_BASE}_test"
+
 
 if "pytest" in modules:
-    settings.DB_BASE += "_test"
+    settings = TestSettings()
+else:
+    settings = Settings()

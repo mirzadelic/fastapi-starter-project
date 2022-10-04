@@ -18,4 +18,4 @@ COPY ../app/ .
 
 # install python dependencies
 RUN pip install --upgrade pip
-RUN pip install -r requirements/base.txt
+RUN pip install -r requirements/development.txt
