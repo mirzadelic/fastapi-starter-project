@@ -12,13 +12,26 @@ services:
     ports:
     - 8000:8000
     depends_on:
+      db:
+        condition: service_healthy
+    links:
     - db
 
   db:
     image: postgres:13.4
     ports:
     - 5432:5432
+    volumes:
+    - db_data:/var/lib/postgresql/data
     environment:
     - POSTGRES_USER=postgres
     - POSTGRES_PASSWORD=postgres
     - POSTGRES_DB=db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  db_data:
