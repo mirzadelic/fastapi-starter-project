@@ -1,8 +1,8 @@
-fastapi==0.79.0
-uvicorn[standard]==0.17.6
-ujson==5.4.0
-python-dotenv==0.20.0
-sqlmodel==0.0.6
-asyncpg==0.26.0
+fastapi==0.87.0
+uvicorn[standard]==0.20.0
+ujson==5.5.0
+python-dotenv==0.21.0
+sqlmodel==0.0.8
+asyncpg==0.27.0
 alembic==1.8.1
 sqlalchemy-utils==0.38.3
