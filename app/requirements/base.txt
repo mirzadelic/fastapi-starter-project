@@ -5,3 +5,4 @@ python-dotenv==0.20.0
 sqlmodel==0.0.6
 asyncpg==0.26.0
 alembic==1.8.1
+sqlalchemy-utils==0.38.3

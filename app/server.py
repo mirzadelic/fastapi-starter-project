@@ -1,5 +1,5 @@
 import uvicorn
-from core.settings import settings
+from core.config import settings
 
 
 def main() -> None:

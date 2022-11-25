@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     ENV: str = "dev"
     HOST: str = "0.0.0.0"
     PORT: int = 8000
-    BASE_URL_: str = f"https://{HOST}:{PORT}"
+    _BASE_URL: str = f"https://{HOST}:{PORT}"
     # quantity of workers for uvicorn
     WORKERS_COUNT: int = 1
     # Enable uvicorn reloading
@@ -22,12 +22,16 @@ class Settings(BaseSettings):
     DB_PORT: int = 5432
     DB_USER: str = "postgres"
     DB_PASS: str = "postgres"
-    DB_BASE: str = "db"
+    _DB_BASE: str = "db"
     DB_ECHO: bool = False
 
     @property
+    def DB_BASE(self):
+        return self._DB_BASE
+
+    @property
     def BASE_URL(self) -> str:
-        return self.BASE_URL_ if self.BASE_URL_.endswith("/") else f"{self.BASE_URL_}/"
+        return self._BASE_URL if self._BASE_URL.endswith("/") else f"{self._BASE_URL}/"
 
     @property
     def DB_URL(self) -> str:
@@ -43,8 +47,11 @@ class Settings(BaseSettings):
         env_file = f"{BASE_DIR}/.env"
         env_file_encoding = "utf-8"
         fields = {
-            "BASE_URL_": {
+            "_BASE_URL": {
                 "env": "BASE_URL",
+            },
+            "_DB_BASE": {
+                "env": "DB_BASE",
             },
         }
 
@@ -52,10 +59,7 @@ class Settings(BaseSettings):
 class TestSettings(Settings):
     @property
     def DB_BASE(self):
-        return f"{self.DB_BASE}_test"
+        return f"{super().DB_BASE}_test"
 
 
-if "pytest" in modules:
-    settings = TestSettings()
-else:
-    settings = Settings()
+settings = TestSettings() if "pytest" in modules else Settings()
